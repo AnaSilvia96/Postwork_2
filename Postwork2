@@ -1,0 +1,24 @@
+suppressWarnings(suppressMessages(library(dplyr)))
+
+str(soccer2017)
+head(soccer2017)
+View(soccer2017)
+summary(soccer2017)
+
+str(soccer2018)
+head(soccer2018)
+View(soccer2018)
+summary(soccer2018)
+
+str(soccer2019)
+head(soccer2019)
+View(soccer2019)
+summary(soccer2019)
+
+lista <- lapply(dir(), read.csv)
+lista <- lapply(lista,select, Date, HomeTeam, FTHG, AwayTeam ,FTAG)
+data <- do.call(rbind, lista)
+data <- mutate(data, Date = as.Date(Date, "%d/%m/%y"))
+data <- rename(data, date = Date, home.team = HomeTeam, 
+               home.score = FTHG, away.team = AwayTeam, 
+               away.score = FTAG)
